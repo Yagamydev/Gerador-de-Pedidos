@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Pedidos - Lanchonete Gigabytes 10.0.1</title>
+    <title>Gerador de Pedidos - Lanchonete Gigabytes 10.0.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* ------------------------------------------------------------------ */
@@ -169,7 +169,7 @@
     <div class="container mx-auto p-4 sm:p-8 max-w-4xl relative">
         
         <header class="text-center mb-8 p-6 header-metal rounded-xl shadow-lg">
-            <h1 class="text-3xl sm:text-4xl font-extrabold">📋 Gerador de Pedidos - Lanchonete GigaBytes 10.0 📋</h1>
+            <h1 class="text-3xl sm:text-4xl font-extrabold">📋 Gerador de Pedidos - Lanchonete GigaBytes 10.0.4 📋</h1>
             <p class="text-lg text-metal-light mt-2">Selecione os itens e gere seu recibo!</p>
         </header>
 
@@ -178,7 +178,7 @@
                 
                 <div class="mb-6">
                     <label for="customer-name" class="block text-sm font-medium mb-1">Nome do Cliente:</label>
-                    <input type="text" id="customer-name" class="w-full p-3 border rounded-lg focus:ring transition duration-150" placeholder="Ex: Rivanildo Cústodio da Silva">
+                    <input type="text" id="customer-name" class="w-full p-3 border rounded-lg focus:ring transition duration-150" placeholder="Ex: Rivanildo Custódio da Silva">
                 </div>
 
                 <div class="mb-6">
@@ -224,6 +224,9 @@
                         </button>
                         <button onclick="generatePDF(true)" class="btn-metal gray flex-1 text-white p-3 rounded-lg focus:outline-none focus:ring-4">
                             🖨️ Imprimir Pedido
+                        </button>
+                        <button onclick="printThermal()" class="btn-metal gold flex-1 text-white p-3 rounded-lg focus:outline-none focus:ring-4">
+                        🧾 Imprimir Cupom Fiscal
                         </button>
                     </div>
 
@@ -274,7 +277,7 @@
 
         const menu = {
             snacks: [
-                { name: 'Bolo de Macacheira', price: 5.00, id: 'bolodemacacheira' },
+                { name: 'Bolo de Macaxeira', price: 5.00, id: 'bolodemacaxeira' },
                 { name: 'Bolinho Misto', price: 5.00, id: 'bolinhomisto' },
                 { name: 'Cachorro Quente', price: 5.00, id: 'cachorroquente' },
                 { name: 'Coxinha de Frango', price: 5.00, id: 'coxinha' },
@@ -283,15 +286,15 @@
                 { name: 'Empadinha', price: 5.00, id: 'empada' },
                 { name: 'Empadão (Fatia)', price: 7.00, id: 'empadaofatia' },
                 { name: 'Empadão (Unidade)', price: 40.00, id: 'empadaouni' },
-                { name: 'Enrroladinho de Salsicha', price: 5.00, id: 'enrroladinhodesalsicha' },
-                { name: 'Hamburguer', price: 5.00, id: 'hamburguer' },
+                { name: 'Enroladinho de Salsicha', price: 5.00, id: 'enroladinhodesalsicha' },
+                { name: 'Hambúrguer', price: 5.00, id: 'hambúrguer' },
                 { name: 'Joelho Misto', price: 5.00, id: 'joelhomisto' },
                 { name: 'Mini Esfiha', price: 5.00, id: 'esfiha' },
                 { name: 'Mini Pizza', price: 6.00, id: 'minipizza' },
-                { name: 'Outro Salgados P/ Revenda', price: 3.00, id: 'outros' },
+                { name: 'Outros Salgados P/ Revenda', price: 3.50, id: 'outros' },
                 { name: 'Pastel P/ Revenda', price:3.50, id: 'pastelrevenda' },
                 { name: 'Pastel Chinês', price: 5.00, id: 'pastelchines' },
-                { name: 'Pastel de Feira', price: 5.00, id: 'pasteldefeira' },
+                { name: 'Pastel de Feira', price: 6.00, id: 'pasteldefeira' },
                 { name: 'Pastelão de Frango', price: 5.00, id: 'pasteldefrango' },
                 { name: 'Pastelão Misto', price: 5.00, id: 'pastelaomisto' },
                 { name: 'Pastel de Forno', price: 5.00, id: 'pasteldeforno' },
@@ -303,35 +306,35 @@
                 { name: 'Água Mineral s/ Gás 500 ml', price: 2.00, id: 'agua_sgas' },
                 { name: 'Água Mineral c/ Gás 500ml', price: 4.00, id: 'agua_gas' },
                 { name: 'Brejeira Dose', price: 2.00, id: 'brejeiradose' },
-                { name: 'Brejeira Litro', price: 12.00, id: 'brejeiralitro' },
+                { name: 'Brejeira Litro', price: 15.00, id: 'brejeiralitro' },
                 { name: 'Cerveja Litrão', price: 10.00, id: 'cervejalitrao' },
                 { name: 'Cerveja 600ml', price: 7.00, id: 'cerveja600ml' },
                 { name: 'Cerveja Latinha 350ml ', price: 4.00, id: 'cerveja 350ml' },
                 { name: 'Cerveja Itaipava Latão 473ml ', price: 5.00, id: 'cerveja 473ml' },
-                { name: 'Cerveja Antartica Latão 473ml ', price: 6.00, id: 'cervejaA473ml' },
-                { name: 'Coca-Cola 2L (Retornavel)', price: 12.00, id: 'coca2lretornavel' },
+                { name: 'Cerveja Antártica Latão 473ml ', price: 6.00, id: 'cervejaA473ml' },
+                { name: 'Coca-Cola 2L (Retornável)', price: 12.00, id: 'coca2lretornável' },
                 { name: 'Coca-Cola 2L (Pet)', price: 15.00, id: 'cocapet2l' },
-                { name: 'Coca-Cola 2,5L (Pet)', price: 15.00, id: 'cocapet25l' },
-                { name: 'Coca-Cola 1L LS', price: 7.00, id: 'coca1ls' },
-                { name: 'Coca-Cola KS 290ml', price: 3.50, id: 'cocaks' },
+                { name: 'Coca-Cola 2,5L (Pet)', price: 18.00, id: 'cocapet25l' },
+                { name: 'Coca-Cola 1L LS', price: 8.00, id: 'coca1ls' },
+                { name: 'Coca-Cola KS 290ml', price: 4.00, id: 'cocaks' },
                 { name: 'Coca-Cola NS 200ml', price: 2.50, id: 'cocalata' },
                 { name: 'Coca-Cola Pet 250ml', price: 3.00, id: 'cocapet250' },
                 { name: 'Dreher Dose', price: 4.00, id: 'dreherdose' },
                 { name: 'Dreher Litro', price: 35.00, id: 'dreherlitro' },
                 { name: 'Energetico 2L', price: 15.00, id: 'energetico2l' },
-                { name: 'Energetico Lata 470 ml', price: 12.00, id: 'energetic0470' },
-                { name: 'Energetico Lata 269 ml', price: 10.00, id: 'energetico269' },
+                { name: 'Energético Lata 470 ml', price: 12.00, id: 'energético470' },
+                { name: 'Energético Lata 269 ml', price: 10.00, id: 'energético269' },
                 { name: 'Matuta Lata 270 ml', price: 10.00, id: 'matutalata270ml' },
                 { name: 'Matuta 1L', price: 30.00, id: 'matutalitro' },
                 { name: 'Montilla Dose', price: 4.00, id: 'montilladose' },
                 { name: 'Montilla Litro', price: 40.00, id: 'montillalitro' },
-                { name: 'Refrigerante 2L', price: 7.00, id: 'refri2l' },
+                { name: 'Refrigerante 2L', price: 8.00, id: 'refri2l' },
                 { name: 'Refrigerante 1L', price: 5.00, id: 'refri1L' },
                 { name: 'Refrigerante 1L Pet ', price: 5.00, id: 'refripet' },
                 { name: 'Refrigerante 250ml Pet', price: 2.00, id: 'refri250' },
-                { name: 'Suco Del Valle (450ml)', price: 3.50, id: 'suco 450' },
+                { name: 'Suco Del Valle (450ml)', price: 4.00, id: 'suco 450' },
                 { name: 'Vodka Dose', price: 2.00, id: 'Vodkadose' },
-                { name: 'Vodka Litro', price: 15.00, id: 'Vodkalitro' }
+                { name: 'Vodka Litro', price: 20.00, id: 'Vodkalitro' }
             ]
         };
 
@@ -773,12 +776,136 @@
 
             if (isPrint) {
                 doc.autoPrint();
+                window.globalOrder = order;
                 window.open(doc.output('bloburl'), '_blank');
             } else {
                 const filename = customerName ? `Recibo_${customerName.replace(/\s/g, '_')}_${Date.now()}.pdf` : `Recibo_${Date.now()}.pdf`;
                 doc.save(filename);
             }
         }
+        
+        // =======================================
+        // INÍCIO DA FUNÇÃO DE IMPRESSÃO TÉRMICA
+        // =======================================
+        function printThermal() {
+            console.log("Iniciando impressão térmica com itens e PIX...");
+
+            // 1. Usa a função getOrderSummary para coletar os dados do pedido perfeitamente atualizados
+            const targetOrder = getOrderSummary(false);
+            
+            // Verificação de segurança (Não imprime vazio)
+            if (targetOrder.total <= 0) {
+                showErrorToast('Adicione pelo menos um item ao pedido para imprimir o cupom fiscal.');
+                return;
+            }
+
+            // 2. Coleta os dados textuais do cliente e atendente
+            const getElementValue = (id) => document.getElementById(id)?.value || '';
+            const customerName = getElementValue('customer-name') || 'Consumidor';
+            const customerAddress = getElementValue('customer-address') || 'Não informado';
+            const employee = selectedEmployee || 'Balcão';
+            const totalPrice = formatCurrency(targetOrder.total);
+
+            // 3. Monta o HTML dinâmico dos itens
+            let itemsHTML = '';
+            targetOrder.items.forEach(item => {
+                const subtotal = item.quantity * item.price;
+                itemsHTML += `
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; margin: 4px 0;">
+                        <span style="flex: 3; text-align: left;">${item.quantity}x ${item.name}</span>
+                        <span style="flex: 1; text-align: right;">${formatCurrency(subtotal)}</span>
+                    </div>
+                `;
+            });
+
+            // 4. Recupera e monta a imagem do QR Code PIX
+            let qrCodeHTML = '';
+            if (typeof base64PixQR !== 'undefined' && base64PixQR.length > 50) {
+                qrCodeHTML = `
+                    <div style="text-align: center; margin-top: 15px;">
+                        <p style="margin: 2px 0; font-weight: bold; font-size: 12px;">Pague com PIX:</p>
+                        <img src="${base64PixQR}" style="width: 130px; height: 130px; margin: 5px auto; display: block;">
+                    </div>
+                `;
+            }
+
+            // 5. Estrutura o layout completo do cupom na memória
+            const receiptDiv = document.createElement('div');
+            receiptDiv.id = 'cupom-termico-temporario';
+            receiptDiv.innerHTML = `
+                <div style="font-family: 'Courier New', Courier, monospace; font-size: 12px; color: #000; width: 270px; margin: 0 auto;">
+                    <div style="text-align: center;">
+                        <h3 style="margin: 0; font-size: 14px;">LANCHONETE GIGABYTES</h3>
+                        <p style="margin: 2px 0; font-size: 10px;">Contatos: (83) 99338-1587 / 99343-0616</p>
+                        <p style="margin: 2px 0; font-size: 10px;">Org. Nenem e Família</p>
+                    </div>
+                    
+                    <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+                    <p style="margin: 3px 0;"><b>Data:</b> ${new Date().toLocaleString('pt-BR')}</p>
+                    <p style="margin: 3px 0;"><b>Cliente:</b> ${customerName}</p>
+                    <p style="margin: 3px 0;"><b>End/Mesa:</b> ${customerAddress}</p>
+                    <p style="margin: 3px 0;"><b>Atend:</b> ${employee}</p>
+                    
+                    <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+                    <p style="text-align: center; font-weight: bold; margin: 3px 0;">ITENS DO PEDIDO</p>
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 11px; margin-bottom: 4px;">
+                        <span style="flex: 3; text-align: left;">Qtd x Produto</span>
+                        <span style="flex: 1; text-align: right;">Subtotal</span>
+                    </div>
+                    
+                    <!-- Lista de produtos -->
+                    ${itemsHTML}
+                    
+                    <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; margin: 3px 0;">
+                        <span>TOTAL:</span>
+                        <span>${totalPrice}</span>
+                    </div>
+                    
+                    <!-- QR Code PIX -->
+                    ${qrCodeHTML}
+                    
+                    <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+                    <div style="text-align: center; margin: 3px 0;">
+                        <p>Obrigado pela preferência!</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(receiptDiv);
+
+            // 6. Configura as regras de isolamento visual para a impressão
+            const style = document.createElement('style');
+            style.id = 'estilo-impressao-termica';
+            style.innerHTML = `
+                @media screen {
+                    #cupom-termico-temporario { display: none; }
+                }
+                @media print {
+                    body * { visibility: hidden; }
+                    #cupom-termico-temporario, #cupom-termico-temporario * { visibility: visible; }
+                    #cupom-termico-temporario {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 270px;
+                    }
+                    @page { margin: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // 7. Dispara a janela de impressão nativa
+            window.print();
+
+            // 8. Remove os elementos da memória após o encerramento do processo
+            setTimeout(() => {
+                document.body.removeChild(receiptDiv);
+                document.head.removeChild(style);
+            }, 1000);
+        }
+        // =======================================
+        // FIM DA FUNÇÃO DE IMPRESSÃO TÉRMICA
+        // =======================================
         
         window.onload = () => {
             initMenu();
@@ -787,5 +914,6 @@
             document.getElementById('favorites-header').classList.remove('collapsed');
         };
     </script>
+    
 </body>
 </html>
