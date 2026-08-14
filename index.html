@@ -80,6 +80,16 @@
             transform: scale(1.02);
         }
         
+        .btn-metal.blue {
+            background: linear-gradient(180deg, #7191f8, #446cef);
+            border-color: #1b2c99;
+        }
+        .btn-metal.blue:hover {
+            background: linear-gradient(180deg, #4452ef, #1b1b99);
+            box-shadow: 0 0 15px var(--accent-blue); 
+            transform: scale(1.02);
+        }
+
         .btn-metal.gray {
             background: linear-gradient(180deg, #6b7280, #374151);
             border-color: #1f2937;
@@ -231,7 +241,7 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4 mb-4">
-                        <button onclick="finalizeOrder()" class="btn-metal gold flex-1 text-white p-3 rounded-lg focus:outline-none focus:ring-4">
+                        <button onclick="finalizeOrder()" class="btn-metal blue flex-1 text-white p-3 rounded-lg focus:outline-none focus:ring-4">
                             ✅ Finalizar Pedido
                         </button>
                         <button onclick="showRanking()" class="btn-metal gray flex-1 text-white p-3 rounded-lg focus:outline-none focus:ring-4">
